@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<title>Painel de senha</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+
+</head>
+<body>
+
+  <header>Painel de senha</header>
+
+  <main>
+  	 <div class="senha">
+
+  	 	<h2>Senha: </h2>
+  	 	<h2 id="senha">N000</h2>
+
+  	 	
+  	 </div>
+  </main>
+
+
+
+
+
+ <script type="text/javascript">
+
+
+
+  	
+  	const vSenha  = document.querySelector("#senha");
+
+  	// nandando as senha pro localStorage
+    let senhaNormal = localStorage.getItem('senhaNormal');
+    let senhaPreferencial = localStorage.getItem('senhaPreferencial');
+    let ultSenha = localStorage.getItem('ultsenha');
+    let audio = new Audio('senha.mp3');
+
+    //tirando senhas do historico
+
+    if(!senhaNormal){
+    	senhaNormal = 0
+    }
+
+    if (!senhaPreferencial) {
+        
+        senhaPreferencial = 0
+    } 
+
+    if (!ultSenha)
+
+    	ultSenha = 'N'
+
+    mostrarSenha();
+
+    
+
+
+    //função pra pegar as teclas pressiondas
+
+    window.addEventListener('keydown', function(e){
+    	
+    	if (e.key == 'n' || e.key == 'N'){
+
+    		senhaNormal++;
+    		ultSenha = 'N';
+        audio.play();
+
+    	} else if(e.key == 'p' || e.key == 'P') {
+
+    		senhaPreferencial ++;
+    		ultSenha = 'p';
+        audio.play();
+
+    	}else if(e.key == 'r' || e.key == 'R'){
+
+        ultsenha = 'N';
+        senhaNormal = 0;
+        senhaPreferencial = 0;
+
+      }
+
+
+    	localStorage.setItem('senhaNormal', senhaNormal);
+    	localStorage.setItem('senhaPreferencial', senhaPreferencial);
+    	localStorage.setItem('ultSenha', ultSenha);
+
+
+    	mostrarSenha();
+
+
+
+    });
+
+    function mostrarSenha(){
+
+    	if (ultSenha == 'N') {
+
+    		vSenha.innerHTML = 'N' + parseInt(senhaNormal).toLocaleString('pt-br',{minimumIntegerDigits: 3});
+
+
+    	} else {
+
+    		vSenha.innerHTML = 'P' + parseInt(senhaPreferencial).toLocaleString('pt-br',{minimumIntegerDigits: 3});
+    	}
+
+    };
+
+
+ 	
+</script>
+
+
+
+
+</body>
+</html>
